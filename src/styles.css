@@ -1,1 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .items-inherit {
+    align-items: inherit;
+  }
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+.slick-slider {
+  /* width: 88%; */
+  /* margin: auto; */
+
+}
+
+.slick-slider .slick-arrow {
+  width: 100px;
+  z-index: 100;
+}
+
+
+
+.slick-slider {
+  margin: 0 -5px;
+}
+
+.slick-slide {
+  margin: 0 5px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: midnightblue;
+}

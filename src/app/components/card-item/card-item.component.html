@@ -1,0 +1,15 @@
+<div *ngIf="item" class="relative overflow-hidden group">
+  <div
+    class="translate-y-full opacity-0 absolute w-full bottom-0 text-center group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+    <div class="bg-slate-900/75 bg-gradient-to-t from-[#0F1E29] to-transparent p-2">
+      <h1 class=""><a routerLink="/detail/{{item.id}}">{{item.title}}</a></h1>
+      <p class="my-2 text-xs text-amber-300">{{item.release_date}}</p>
+
+    </div>
+  </div>
+  <div class="absolute right-0 p-2 text-xs "><span class="float-right">{{item.vote_average}}<i
+        class="fa-solid fa-star text-yellow-300"></i></span> </div>
+  <a routerLink="/detail/{{item.id}}">
+    <img class="w-full" src="{{url_image}}{{item.poster_path}}" alt="">
+  </a>
+</div>

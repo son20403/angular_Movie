@@ -1,0 +1,26 @@
+<div class="h-[385px] bg-bg-banner">
+  <div class="container h-full max-w-6xl">
+    <div class="text-center pt-44">
+      <h1 class="text-5xl font-semibold uppercase">Movie listing</h1>
+      <ul class="flex justify-center my-7 uppercase">
+        <li class="font-extralight active:text-cyan-600"><a routerLink="/">Home</a></li>
+        <li class="mx-4"><span><i class="fa-solid fa-angle-right"></i></span></li>
+        <li class="font-bold">Movie listing</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container my-14">
+  <div class="grid grid-cols-5 gap-3">
+    <div *ngFor="let item of listMovie">
+      <app-card-item [item]="item"></app-card-item>
+    </div>
+  </div>
+  <div class="text-center my-20">
+    <button (click)="LoadMore()" type="button" data-te-ripple-init data-te-ripple-color="light"
+      class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+      Load More
+    </button>
+  </div>
+</div>

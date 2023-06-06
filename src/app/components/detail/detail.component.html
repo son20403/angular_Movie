@@ -1,0 +1,230 @@
+<div>
+  <div *ngIf="detailMovie" style="background-image: url({{url_image}}{{detailMovie.backdrop_path}});"
+    class="min-h-[600px] bg-slate-400 absolute  top-0 w-full bg-cover">
+    <div class="absolute w-full h-full bg-gradient-to-t from-slate-950 to-transparent "></div>
+  </div>
+
+  <div class="pt-24 container relative grid grid-cols-3 gap-4">
+    <div *ngIf="detailMovie" class="">
+      <div class=" w-96 rounded-md overflow-hidden shadow-2xl top-20 sticky">
+        <img src="{{url_image}}{{detailMovie.poster_path}}" alt="">
+      </div>
+    </div>
+    <div class="col-span-2">
+      <div *ngIf="detailMovie" class="mt-60">
+        <h1 class="text-4xl font-bold transform-none mb-[25px]">
+          {{detailMovie.title}}
+        </h1>
+        <div class="social-btn mb-[40px] flex items-center justify-start">
+          <a href="#" class="parent-btn text-sm text-[#dd003f] font-bold uppercase mr-[15px]">
+            <i style="border-color: red; color: red;"
+              class="fa-solid fa-heart py-[10px] px-[14px] text-center rounded-[50%] border mr-[10px] text-base"></i>
+            Add to Favorite</a>
+
+          <a href="#" class="parent-btn text-sm text-[#dd003f] font-bold uppercase mr-[15px]"><i
+              style="border-color: #dd003f; color: #dd003f;"
+              class="fa-solid fa-share-nodes py-[10px] px-[14px] text-center rounded-[50%] border mr-[10px] text-base"></i>share</a>
+        </div>
+        <!--  -->
+        <div class="movie-rate flex items-center justify-start border-t border-b mb-20">
+          <div class="rate flex items-center justify-start">
+            <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+            <i class="ion-android-star "></i>
+            <p class="mb-0 ml-3 text-xs"><span class="text-sm font-normal">{{detailMovie.vote_average}}</span> /10<br>
+              <span class="rv text-xs text-yellow-300">{{detailMovie.vote_count}} Reviews</span>
+            </p>
+          </div>
+          <div class="rate-star flex items-center justify-start ml-8 border-l pl-8 h-14">
+            <p class="text-lg text-[#abb7c4] mr-[15px] mb-0 ">Rate This Movie: </p>
+            <div class="relative">
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <i class="fa-solid fa-star text-4xl text-[#f5b50a]"></i>
+              <div class="bg-white h-full overflow-hidden mix-blend-color absolute top-0 right-0 "
+                [style.width]="countRating + '%'">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+      <div class="grid grid-cols-3 gap-10">
+        <div class=" col-span-2">
+          <ul class="mb-5 flex list-none flex-col flex-wrap pl-0 md:flex-row" id="pills-tab" role="tablist"
+            data-te-nav-ref>
+            <li role="presentation">
+              <a href="#pills-home"
+                class="my-2 block rounded bg-neutral-100 px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 data-[te-nav-active]:!bg-primary-100 data-[te-nav-active]:text-primary-700 dark:bg-neutral-700 dark:text-white dark:data-[te-nav-active]:text-primary-700 md:mr-4"
+                id="pills-home-tab" data-te-toggle="pill" data-te-target="#pills-home" data-te-nav-active role="tab"
+                aria-controls="pills-home" aria-selected="true">overview</a>
+            </li>
+            <li role="presentation">
+              <a href="#pills-profile"
+                class="my-2 block rounded bg-neutral-100 px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 data-[te-nav-active]:!bg-primary-100 data-[te-nav-active]:text-primary-700 dark:bg-neutral-700 dark:text-white dark:data-[te-nav-active]:text-primary-700 md:mr-4"
+                id="pills-profile-tab" data-te-toggle="pill" data-te-target="#pills-profile" role="tab"
+                aria-controls="pills-profile" aria-selected="false">Comment</a>
+            </li>
+          </ul>
+
+          <div>
+            <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+              id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" data-te-tab-active>
+              <!-- content -->
+              <div *ngIf="detailMovie">
+                <div>
+                  <p class="leading-6 text-sm font-extralight my-5">{{detailMovie.overview}}</p>
+                </div>
+                <div class="my-10">
+                  <h1 class="text-2xl uppercase font-semibold">genres</h1>
+                  <hr>
+                  <div *ngFor="let genre of detailMovie.genres" class="flex">
+                    <p class="leading-6 text-xs font-extralight my-2">{{genre.name}}</p>
+                  </div>
+                </div>
+                <div class="my-10">
+                  <h1 class="text-2xl uppercase font-semibold">photos</h1>
+                  <hr>
+                  <div class="my-10">
+                    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slidePhotos">
+                      <div ngxSlickItem *ngFor="let photo of photosMovie" class="slide">
+                        <div *ngIf="photo" class="">
+                          <img class="w-full" src="{{url_image}}{{photo.file_path}}" alt="">
+                        </div>
+                      </div>
+                    </ngx-slick-carousel>
+                  </div>
+                </div>
+                <div class="my-10">
+                  <h1 class="text-2xl uppercase font-semibold">Casts</h1>
+                  <hr>
+                  <div class="my-10">
+                    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slidePhotos">
+                      <div ngxSlickItem *ngFor="let cast of castsMovie" class="slide">
+                        <div class="relative  overflow-hidden group">
+                          <div
+                            class="translate-y-full opacity-0 absolute w-full bottom-0 text-center group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+                            <div class="bg-slate-900/75 bg-gradient-to-t from-[#0F1E29] to-transparent p-2">
+                              <h1 class="">{{cast.name}} / {{cast.character}}</h1>
+                            </div>
+                          </div>
+                          <img *ngIf="cast.profile_path" class="w-full" src="{{url_image}}{{cast.profile_path}}" alt="">
+                        </div>
+                      </div>
+                    </ngx-slick-carousel>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="commentsMovies"
+              class="hidden relative opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+              id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <div class="row max-h-[1000px] overflow-y-auto">
+                <div class="sticky bg-[#192026] z-50 top-0 w-full flex items-center justify-between">
+                  <div class="div">
+                    <h3 class="text-lg text-[#abb7c4] font-bold normal-case mb-[15px] ">Related Movies To</h3>
+                    <h2 class="text-2xl text-[#4280bf] font-bold normal-case mb-[30px] ">{{detailMovie.title}}
+                    </h2>
+                  </div>
+                  <a href="#"
+                    class="text-sm font-bold uppercase bg-[#dd003f] text-white py-[13px] px-[25px] rounded-3xl ">Write
+                    Review</a>
+                </div>
+                <hr>
+                <div *ngFor="let commentsMovie of commentsMovies" class="border-b border-[#233a50] pt-5 pr-5 pb-5 pl-o">
+                  <div class="flex  justify-start items-inherit">
+                    <img *ngIf="!commentsMovie.author_details.avatar_path"
+                      class="mr-[30px] rounded-[3px] w-[42px] h-[42px] border-none max-h-full align-middle overflow-clip"
+                      src="../../../assets/User-avatar.png" alt="">
+                    <img *ngIf="commentsMovie.author_details.avatar_path"
+                      class="mr-[30px] rounded-[3px] w-[42px] h-[42px] border-none max-h-full align-middle overflow-clip"
+                      src="{{url_image}}{{commentsMovie.author_details.avatar_path}}" alt="">
+                    <div class="relative">
+                      <h3 class="text-[18px] text-[#abb7c4] normal-case mb-[15px] ">Best Marvel movie in my opinion</h3>
+                      <span class="relative">
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                        <div class="bg-white h-full overflow-hidden mix-blend-color absolute top-0 right-0 "
+                          [style.width]="commentsMovie.author_details.rating *  + '%'">
+                        </div>
+                      </span>
+                      <p class="text-xs text-[#abb7c4] font-light normal-case">
+                        17 December 2016 by <a href="#" class="text-[#4280bf]"> hawaiipierson</a>
+                      </p>
+                    </div>
+                  </div>
+                  <p class="text-sm mt-5 font-extralight">This is by far one of my favorite movies from the MCU. The
+                    introduction
+                    of new
+                    Characters both good
+                    and bad also makes the movie more exciting. giving the characters more of a back story can also help
+                    audiences relate more to different characters better, and it connects a bond between the audience
+                    and actors or characters. Having seen the movie three times does not bother me here as it is as
+                    thrilling and exciting every time I am watching it. In other words, the movie is by far better than
+                    previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do
+                    themselves in each film, there are no problems watching it more than once.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="detailMovie" class="">
+          <h1 class="text-sm text-[#abb7c4] font-bold capitalize mb-[10px]">
+            Production companies:
+          </h1>
+          <div *ngFor="let item of detailMovie.production_companies">
+            <div class=" my-4">
+              <p class="text-xs">{{item.name}}</p>
+            </div>
+          </div>
+          <div class="my-10">
+            <h1 class="text-sm text-[#abb7c4] font-bold capitalize mb-[10px]">
+              Release Date:
+            </h1>
+            <div class=" my-4">
+              <p class="text-xs">{{detailMovie.release_date}}</p>
+            </div>
+            <div class="my-10">
+              <h1 class="text-sm text-[#abb7c4] font-bold capitalize mb-[10px]">
+                Run Time:
+              </h1>
+              <div class=" my-4">
+                <p class="text-xs">{{detailMovie.runtime}} min</p>
+              </div>
+            </div>
+            <div class="my-10">
+              <h1 class="text-sm text-[#abb7c4] font-bold capitalize mb-[10px]">
+                Countries
+              </h1>
+              <div class="my-4" *ngFor="let countries of detailMovie.production_countries">
+                <p class="text-xs">{{countries.name}}</p>
+              </div>
+            </div>
+            <div class="my-10">
+              <h1 class="text-sm text-[#abb7c4] font-bold capitalize mb-[10px]">
+                Plot Keywords:
+              </h1>
+              <div class="my-4 float-left" *ngFor="let keyword of keywordsMovie">
+                <p class="text-xs mx-1 p-2 border rounded-md">{{keyword.name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="bg-white w-full h-40"></div> -->
+    </div>
+  </div>

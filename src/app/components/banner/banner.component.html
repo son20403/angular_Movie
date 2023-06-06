@@ -1,0 +1,29 @@
+<div class="rounded-b-xl mb-8 overflow-hidden relative">
+  <div class="banner">
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideBanner">
+      <div ngxSlickItem *ngFor="let item of bannerMovie" class="slide">
+        <div style="background-image: url({{url_image}}{{item.backdrop_path}});"
+          class="bg-center min-h-[500px] bg-cover relative hover:scale-105 transition-all duration-500 ">
+          <div class="absolute w-full h-full bg-gradient-to-t from-[#0F1E29] to-transparent  ">
+            <div class="flex w-full h-full px-40 flex-col justify-around hover:scale-105 transition-all duration-500 ">
+              <div></div>
+              <div class="">
+                <h1 class="text-3xl my-4">{{item.title}}</h1>
+                <p class="text-sm my-4 ">{{item.overview}}</p>
+                <a routerLink="/detail/{{item.id}}"
+                  class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                  <span
+                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    Watch Now
+                  </span>
+                  <i
+                    class="fa-solid fa-arrow-right pl-8 pr-2 text-2xl animate-fade-right animate-infinite animate-duration-[2000ms] animate-ease-in-out"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ngx-slick-carousel>
+  </div>
+</div>
