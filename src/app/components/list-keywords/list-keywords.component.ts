@@ -5,38 +5,39 @@ import { MovieService } from 'src/app/services/movie.service';
 import { Ripple, initTE } from 'tw-elements';
 
 @Component({
-  selector: 'app-list-genres',
-  templateUrl: './list-genres.component.html',
-  styleUrls: ['./list-genres.component.css'],
+  selector: 'app-list-keywords',
+  templateUrl: './list-keywords.component.html',
+  styleUrls: ['./list-keywords.component.css'],
 })
-export class ListGenresComponent implements OnInit {
+export class ListKeywordsComponent implements OnInit {
   constructor(
     private movieService: MovieService,
     private router: ActivatedRoute
   ) {}
   pages: number = 1;
-  listMovieGenres: any;
+  listMovieKeyword: any;
   id: any;
   idSubscribe!: Subscription;
   ngOnInit() {
     initTE({ Ripple });
     this.idSubscribe = this.router.params.subscribe((params) => {
       this.id = params['id'];
-      this.LoadlistMovieGenres();
+      this.LoadlistMovieKeyword();
     });
   }
   LoadAPI(page: number) {
-    return this.movieService.getListMovieGenres(this.id + `&page=${page}`);
+    return this.movieService.getListMovieByKeyword(this.id, page);
   }
   LoadMore() {
     this.pages++;
     this.LoadAPI(this.pages).subscribe((data: any) => {
-      this.listMovieGenres.push(...data.results);
+      this.listMovieKeyword.push(...data.results);
     });
   }
-  LoadlistMovieGenres() {
+  LoadlistMovieKeyword() {
     this.LoadAPI(this.pages).subscribe((data: any) => {
-      this.listMovieGenres = data.results;
+      console.log(data);
+      this.listMovieKeyword = data.results;
     });
   }
   ngOnDestroy(): void {

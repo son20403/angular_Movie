@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Movie, MovieDetail } from 'src/app/models/Movie';
 import Connect from 'src/app/public/Connect';
 import { MovieService } from 'src/app/services/movie.service';
 import { Tab, initTE } from 'tw-elements';
@@ -15,38 +17,50 @@ export class DetailComponent implements OnInit {
     private router: ActivatedRoute
   ) {}
 
-  url = Connect.URL;
-  url_image = Connect.URL_IMAGE;
+  url_image: string = Connect.URL_IMAGE;
+  detailMovie!: MovieDetail;
   photosMovie: any;
-  detailMovie: any;
   castsMovie: any;
   sliceCasts: any;
   keywordsMovie: any;
   commentsMovies: any;
-  countRating: any;
+  countRating: number = 0;
+  // id!: number | string;
+  idSubscribe!: Subscription;
 
   ngOnInit() {
     initTE({ Tab });
-    let id = +this.router.snapshot.params['id'];
-    this.movieService.getById(id).subscribe((res: any) => {
-      this.detailMovie = res;
-      this.countRating = this.rate(this.detailMovie.vote_average);
-      console.log(this.countRating);
-    });
-    this.movieService.getByImages(id).subscribe((res: any) => {
-      this.photosMovie = res.backdrops;
-    });
-    this.movieService.getByCasts(id).subscribe((res: any) => {
-      this.castsMovie = res.cast;
-    });
-    this.movieService.getByKeyWords(id).subscribe((res: any) => {
-      this.keywordsMovie = res.keywords;
-    });
-    this.movieService.getListComment(id).subscribe((res: any) => {
-      this.commentsMovies = res.results;
-      console.log(this.commentsMovies);
+    this.idSubscribe = this.router.params.subscribe((params) => {
+      const id = params['id'];
+      this.movieService.getById(id).subscribe((res: MovieDetail) => {
+        this.detailMovie = res;
+        this.countRating = this.rate(this.detailMovie.vote_average);
+      });
+      this.movieService.getByDetailMovie(id, 'images').subscribe((res: any) => {
+        this.photosMovie = res.backdrops;
+        console.log(this.photosMovie);
+      });
+      this.movieService.getByDetailMovie(id, 'casts').subscribe((res: any) => {
+        this.castsMovie = res.cast;
+        console.log(this.castsMovie);
+      });
+      this.movieService
+        .getByDetailMovie(id, 'keywords')
+        .subscribe((res: any) => {
+          this.keywordsMovie = res.keywords;
+          console.log(this.keywordsMovie);
+        });
+      this.movieService
+        .getByDetailMovie(id, 'reviews')
+        .subscribe((res: any) => {
+          this.commentsMovies = res.results;
+        });
     });
   }
+  ngOnDestroy(): void {
+    this.idSubscribe.unsubscribe();
+  }
+
   rate(point: any) {
     return 100 - Math.round((point / 10) * 100);
   }

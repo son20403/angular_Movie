@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MovieService } from 'src/app/services/movie.service';
 // Initialization for ES Users
 import { Collapse, Dropdown, Ripple, initTE, Input } from 'tw-elements';
@@ -10,6 +11,7 @@ import { Collapse, Dropdown, Ripple, initTE, Input } from 'tw-elements';
 })
 export class HeaderComponent implements OnInit {
   constructor(private movieService: MovieService) {}
+  query = new FormControl('');
   listGenres: any;
   ngOnInit() {
     initTE({ Collapse, Dropdown, Ripple, Input });
