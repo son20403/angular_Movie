@@ -26,7 +26,7 @@ export class DetailComponent implements OnInit {
   commentsMovies: any;
   countRating: number = 0;
   // id!: number | string;
-  idSubscribe!: Subscription;
+  idSubscribe!: Subscription; ///rrhwhe
 
   ngOnInit() {
     initTE({ Tab });
