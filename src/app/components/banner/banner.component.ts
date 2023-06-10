@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
+import { Movie } from 'src/app/models/Movie';
 import Connect from 'src/app/public/Connect';
 import { MovieService } from 'src/app/services/movie.service';
 
@@ -11,15 +12,12 @@ import { MovieService } from 'src/app/services/movie.service';
 export class BannerComponent implements OnInit {
   constructor(private movieService: MovieService) {}
 
-  url = Connect.URL;
   url_image = Connect.URL_IMAGE;
-  listMovie: any;
-  bannerMovie: any;
+  listMovie: Movie[] = [];
 
   ngOnInit() {
-    this.movieService.getAll('now_playing').subscribe((res: any) => {
-      this.listMovie = res.results;
-      this.bannerMovie = this.listMovie.slice(0, 5);
+    this.movieService.getAll('top_rated').subscribe(({ results }) => {
+      this.listMovie = results.slice(0, 5);
     });
   }
   slideBanner = {

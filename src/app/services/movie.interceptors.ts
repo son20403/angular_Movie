@@ -18,7 +18,7 @@ export class ExampleInterceptor implements HttpInterceptor {
       'api_key',
       'e9e9d8da18ae29fc430845952232787c'
     );
-    const apiKey = httpRequest.clone({ params: params });
+    const apiKey = httpRequest.clone({ params });
     return next.handle(apiKey);
   }
 }

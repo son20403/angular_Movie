@@ -4,21 +4,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { CardItemComponent } from './components/card-item/card-item.component';
 import { BannerComponent } from './components/banner/banner.component';
-import { ListComponent } from './components/list/list.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DetailComponent } from './components/detail/detail.component';
-import { ExampleInterceptor } from './services/Interceptors';
+import { ExampleInterceptor } from './services/movie.interceptors';
 import { LoaderService } from './services/loader.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoadingInterceptor } from './services/loading.interceptor';
 import { ListMovieComponent } from './components/list-movie/list-movie.component';
 import { ListGenresComponent } from './components/list-genres/list-genres.component';
+import { SliderMoviesComponent } from './components/slider-movies/slider-movies.component';
+import { ListKeywordsComponent } from './components/list-keywords/list-keywords.component';
+import { ListSearchsComponent } from './components/list-searchs/list-searchs.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +30,13 @@ import { ListGenresComponent } from './components/list-genres/list-genres.compon
     HomeComponent,
     CardItemComponent,
     BannerComponent,
-    ListComponent,
+    SliderMoviesComponent,
     DetailComponent,
     SpinnerComponent,
     ListMovieComponent,
     ListGenresComponent,
+    ListKeywordsComponent,
+    ListSearchsComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,7 @@ import { ListGenresComponent } from './components/list-genres/list-genres.compon
     SlickCarouselModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {

@@ -1,7 +1,7 @@
 <section class="container list my-8">
   <h1 class="font-semibold text-2xl">{{titleList}}</h1>
   <div class="card my-5">
-    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideList">
+    <ngx-slick-carousel *ngIf="listMovie" class="carousel" #slickModal="slick-carousel" [config]="slideList">
       <div ngxSlickItem *ngFor="let item of listMovie" class="slide">
         <app-card-item [item]="item"></app-card-item>
       </div>

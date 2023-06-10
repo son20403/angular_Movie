@@ -84,11 +84,16 @@
                 <div class="my-10">
                   <h1 class="text-2xl uppercase font-semibold">genres</h1>
                   <hr>
-                  <div *ngFor="let genre of detailMovie.genres" class="flex">
-                    <p class="leading-6 text-xs font-extralight my-2">{{genre.name}}</p>
+                  <div class="flex">
+                    <p *ngFor="let genre of detailMovie.genres"
+                      class="leading-6 text-xs font-extralight my-2 mx-1 p-2 text-cyan-300">
+                      <a routerLink="/genre/{{genre.id}}">
+                        {{genre.name}}
+                      </a>
+                    </p>
                   </div>
                 </div>
-                <div class="my-10">
+                <div *ngIf="photosMovie" class="my-10">
                   <h1 class="text-2xl uppercase font-semibold">photos</h1>
                   <hr>
                   <div class="my-10">
@@ -101,7 +106,7 @@
                     </ngx-slick-carousel>
                   </div>
                 </div>
-                <div class="my-10">
+                <div *ngIf="castsMovie" class="my-10">
                   <h1 class="text-2xl uppercase font-semibold">Casts</h1>
                   <hr>
                   <div class="my-10">
@@ -122,7 +127,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="commentsMovies"
+            <div *ngIf="commentsMovies && detailMovie"
               class="hidden relative opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
               id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               <div class="row max-h-[1000px] overflow-y-auto">
@@ -137,46 +142,40 @@
                     Review</a>
                 </div>
                 <hr>
-                <div *ngFor="let commentsMovie of commentsMovies" class="border-b border-[#233a50] pt-5 pr-5 pb-5 pl-o">
-                  <div class="flex  justify-start items-inherit">
-                    <img *ngIf="!commentsMovie.author_details.avatar_path"
-                      class="mr-[30px] rounded-[3px] w-[42px] h-[42px] border-none max-h-full align-middle overflow-clip"
-                      src="../../../assets/User-avatar.png" alt="">
-                    <img *ngIf="commentsMovie.author_details.avatar_path"
-                      class="mr-[30px] rounded-[3px] w-[42px] h-[42px] border-none max-h-full align-middle overflow-clip"
-                      src="{{url_image}}{{commentsMovie.author_details.avatar_path}}" alt="">
-                    <div class="relative">
-                      <h3 class="text-[18px] text-[#abb7c4] normal-case mb-[15px] ">Best Marvel movie in my opinion</h3>
-                      <span class="relative">
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <i class="fa-solid fa-star text-[#f5b50a]"></i>
-                        <div class="bg-white h-full overflow-hidden mix-blend-color absolute top-0 right-0 "
-                          [style.width]="commentsMovie.author_details.rating *  + '%'">
-                        </div>
-                      </span>
-                      <p class="text-xs text-[#abb7c4] font-light normal-case">
-                        17 December 2016 by <a href="#" class="text-[#4280bf]"> hawaiipierson</a>
-                      </p>
+                <div *ngFor="let commentsMovie of commentsMovies">
+                  <div *ngIf="commentsMovie.author_details.rating"
+                    class="border-b border-[#233a50] pt-5 pr-5 pb-5 pl-o">
+                    <div class="flex  justify-start items-inherit">
+                      <img
+                        class="mr-[30px] rounded-[3px] w-[42px] h-[42px] border-none max-h-full align-middle overflow-clip"
+                        src="{{
+                          !commentsMovie.author_details.avatar_path ? '../../../assets/User-avatar.png' : commentsMovie.author_details.avatar_path.length > 35 ? commentsMovie.author_details.avatar_path.slice(1) : url_image +  commentsMovie.author_details.avatar_path}}"
+                        alt="">
+                      <div class="relative">
+                        <h3 class="text-[18px] text-[#abb7c4] normal-case mb-[15px] ">{{commentsMovie.author}}
+                        </h3>
+                        <span class="relative">
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <i class="fa-solid fa-star text-[#f5b50a]"></i>
+                          <div class="bg-white h-full overflow-hidden mix-blend-color absolute top-0 right-0 "
+                            [style.width]="100 - (commentsMovie.author_details.rating * 10)  + '%'">
+                          </div>
+                        </span>
+                        <p class="text-xs text-[#abb7c4] font-light normal-case">
+                          17 December 2016 by <a href="#" class="text-[#4280bf]"> hawaiipierson</a>
+                        </p>
+                      </div>
                     </div>
+                    <p class="text-sm mt-5 font-extralight">{{commentsMovie.content}}</p>
                   </div>
-                  <p class="text-sm mt-5 font-extralight">This is by far one of my favorite movies from the MCU. The
-                    introduction
-                    of new
-                    Characters both good
-                    and bad also makes the movie more exciting. giving the characters more of a back story can also help
-                    audiences relate more to different characters better, and it connects a bond between the audience
-                    and actors or characters. Having seen the movie three times does not bother me here as it is as
-                    thrilling and exciting every time I am watching it. In other words, the movie is by far better than
-                    previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do
-                    themselves in each film, there are no problems watching it more than once.</p>
                 </div>
               </div>
             </div>
@@ -219,12 +218,13 @@
                 Plot Keywords:
               </h1>
               <div class="my-4 float-left" *ngFor="let keyword of keywordsMovie">
-                <p class="text-xs mx-1 p-2 border rounded-md">{{keyword.name}}</p>
+                <a routerLink="/keyword/{{keyword.id}}"
+                  class="text-xs text-cyan-300 mx-1 p-2 border border-cyan-400  rounded-md">{{keyword.name}}</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="bg-white w-full h-40"></div> -->
     </div>
   </div>
+</div>

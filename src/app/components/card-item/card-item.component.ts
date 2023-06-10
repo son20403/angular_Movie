@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MovieDetail } from 'src/app/models/movie-detail';
+import { MovieDetail } from 'src/app/models/Movie';
 import Connect from 'src/app/public/Connect';
 
 @Component({

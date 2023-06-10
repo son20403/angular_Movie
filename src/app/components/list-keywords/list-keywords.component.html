@@ -11,9 +11,9 @@
   </div>
 </div>
 
-<div *ngIf="listMovie" class="container my-14">
+<div *ngIf="listMovieKeyword" class="container my-14">
   <div class="grid grid-cols-5 gap-3">
-    <div *ngFor="let item of listMovie">
+    <div *ngFor="let item of listMovieKeyword">
       <app-card-item [item]="item"></app-card-item>
     </div>
   </div>

@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="container my-14">
+<div *ngIf="listMovieGenres" class="container my-14">
   <div class="grid grid-cols-5 gap-3">
     <div *ngFor="let item of listMovieGenres">
       <app-card-item [item]="item"></app-card-item>

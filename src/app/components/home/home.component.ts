@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Connect from 'src/app/public/Connect';
 import { Injectable } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
-import { MovieDetail } from 'src/app/models/movie-detail';
-import { ListMovie } from 'src/app/models/list-movie';
+import { Movie } from 'src/app/models/Movie';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,28 +15,25 @@ import { ListMovie } from 'src/app/models/list-movie';
 export class HomeComponent implements OnInit {
   constructor(private movieService: MovieService) {}
 
-  url = Connect.URL;
-  now_playing: MovieDetail[] = [];
-  upcoming: any;
-  top_rated: any;
-  title1 = 'Now Playing';
-  title2 = 'Up Coming';
-  title3 = 'Top Rate';
+  url: string = Connect.URL;
+  now_playing: Movie[] = [];
+  upcoming: Movie[] = [];
+  top_rated: Movie[] = [];
+  title1: string = 'Now Playing';
+  title2: string = 'Up Coming';
+  title3: string = 'Top Rate';
 
   ngOnInit() {
-    this.movieService.getAll('now_playing').subscribe(({ results }) => {
-      this.now_playing = results;
-      console.log(this.now_playing);
-    });
+    this.movieService
+      .getAll('now_playing')
+      .subscribe(({ results }) => (this.now_playing = results));
 
-    this.movieService.getAll('upcoming').subscribe((res: any) => {
-      console.log(res);
+    this.movieService
+      .getAll('upcoming')
+      .subscribe(({ results }) => (this.upcoming = results));
 
-      this.upcoming = res.results;
-    });
-
-    this.movieService.getAll('top_rated').subscribe((res: any) => {
-      this.top_rated = res.results;
-    });
+    this.movieService
+      .getAll('top_rated')
+      .subscribe(({ results }) => (this.top_rated = results));
   }
 }

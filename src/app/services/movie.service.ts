@@ -2,45 +2,44 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import Connect from '../public/Connect';
 import { Observable } from 'rxjs';
-import { ListMovie } from '../models/list-movie';
-import { MovieDetail } from '../models/movie-detail';
+import { Movie, MovieDetail } from '../models/Movie';
 
 type MovieType = {
-  results: MovieDetail[];
+  results: Movie[];
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService {
-  url = Connect.URL;
+  url: string = Connect.URL;
   constructor(private http: HttpClient) {}
+  getAll(argument: string): Observable<MovieType> {
+    return this.http.get<MovieType>(`${this.url}/movie/${argument}`);
+  }
+  getById(id: number | string): Observable<MovieDetail> {
+    return this.http.get<MovieDetail>(`${this.url}/movie/${id}`);
+  }
+  getByDetailMovie(id: number | string, argument: string) {
+    return this.http.get(`${this.url}/movie/${id}/${argument}`);
+  }
 
-  getAll(argument: any): Observable<MovieType> {
-    return this.http.get<MovieType>(this.url + '/movie/' + argument);
-  }
-  getById(id: any) {
-    return this.http.get(this.url + '/movie/' + id);
-  }
-  getByImages(id: any) {
-    return this.http.get(this.url + '/movie/' + id + '/images');
-  }
-  getByCasts(id: any) {
-    return this.http.get(this.url + '/movie/' + id + '/casts');
-  }
-  getByKeyWords(id: any) {
-    return this.http.get(this.url + '/movie/' + id + '/keywords');
-  }
   getGenres() {
-    return this.http.get(this.url + '/genre/movie/list');
+    return this.http.get(`${this.url}/genre/movie/list`);
+  }
+  getListMovieByKeyword(id: number, pages: number) {
+    return this.http.get(`${this.url}/keyword/${id}/movies?page=${pages}`);
   }
   getListMovieGenres(with_genres: any) {
     return this.http.get(
-      this.url + `/discover/movie?with_genres=${with_genres}`
+      `${this.url}/discover/movie?with_genres=${with_genres}`
     );
   }
-  getListComment(id: any) {
-    return this.http.get(this.url + '/movie/' + id + '/reviews');
+  getListMovieBySearch(query: string) {
+    return this.http.get(`${this.url}/search/movie?query=${query}`);
   }
+
   // https://api.themoviedb.org/3/genre/movie/list?api_key=a9d1a1bf1174dcf6b126f48e7bbdb371
+  // https://api.themoviedb.org/3/keyword/4344/movies
+  // https://api.themoviedb.org/3/search/movie?api_key=e9e9d8da18ae29fc430845952232787c&page=2&query=super
 }

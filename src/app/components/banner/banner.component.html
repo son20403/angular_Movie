@@ -1,7 +1,7 @@
 <div class="rounded-b-xl mb-8 overflow-hidden relative">
   <div class="banner">
-    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideBanner">
-      <div ngxSlickItem *ngFor="let item of bannerMovie" class="slide">
+    <ngx-slick-carousel *ngIf="listMovie" class="carousel" #slickModal="slick-carousel" [config]="slideBanner">
+      <div ngxSlickItem *ngFor="let item of listMovie" class="slide">
         <div style="background-image: url({{url_image}}{{item.backdrop_path}});"
           class="bg-center min-h-[500px] bg-cover relative hover:scale-105 transition-all duration-500 ">
           <div class="absolute w-full h-full bg-gradient-to-t from-[#0F1E29] to-transparent  ">
